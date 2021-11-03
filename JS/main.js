@@ -55,7 +55,7 @@ btn.addEventListener('click', () => {
       bombChoise = parseInt(prompt("INSERIMENTO NON VALIDO. inserisci un nuovo numero (da 1 a 16 MAX)"));
     }
     const bombList = genBombs(cellsNumber, bombChoise);
-    console.log(bombList);
+    console.log('bombe:', bombList);
 
     //lista tentativi
     const attemps = [];
