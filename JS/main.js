@@ -81,10 +81,11 @@ btn.addEventListener('click', () => {
 
 
 
-/***********
- FUNZIONI
-***********/
+/**************************************************
+                    FUNZIONI
+**************************************************/
 
+// CREAZIONE CELLE
 function gridSquare(num, cells){
     const node = document.createElement('div');
     node.classList.add('square', 'd-flex', 'justify-content-center', 'align-items-center', 'fw-bold');
@@ -98,7 +99,7 @@ function gridSquare(num, cells){
 }
 
 
-// gestore click
+// GESTORE CLICK ( VITTORIA / SCONFITTA )
 function handleSquareClick(square, bombList, attemps, maxAttemps){
   // ottieni numero square
   const number = parseInt(square.innerHTML);
@@ -107,7 +108,7 @@ function handleSquareClick(square, bombList, attemps, maxAttemps){
   let message = ``;
   const h2 = document.createElement('h2')
   h2.classList.add('mt-5')
-  
+
   const squares = document.querySelectorAll('.square');
              // sconfitta
   if(bombList.includes(number)){
@@ -130,7 +131,7 @@ function handleSquareClick(square, bombList, attemps, maxAttemps){
     square.classList.add('active');
 
     attemps.push(number);
-    console.log(attemps);
+    console.log('tentativo n°', attemps.length);
   
     if(attemps.length === maxAttemps){
       console.log('hai vinto');
@@ -150,7 +151,7 @@ function handleSquareClick(square, bombList, attemps, maxAttemps){
 }
 
 
-// bombe
+// BOMBE
 function genBombs(cells, totBombs){
   const bombs = [];
 
@@ -167,7 +168,7 @@ function genBombs(cells, totBombs){
 
 }
 
-// numero random
+// NUMERO RANDOM
 function randomNum(min, max){
   return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
