@@ -31,8 +31,8 @@ btn.addEventListener('click', () => {
     
     switch (GridDimension) {
         case 'Easy': 
-            cellsNumber = 100;
-            cellsPerSide = 10;
+            cellsNumber = 16;
+            cellsPerSide = 4;
             break;
     
         case 'Normal':
@@ -72,9 +72,7 @@ btn.addEventListener('click', () => {
     // gen square
       const square = gridSquare(num, cellsPerSide);
 
-      square.addEventListener('click', () =>{
-        handleSquareClick(square, bombList, attemps, maxAttemps);
-      });
+      square.addEventListener('click', () => handleSquareClick(square, bombList, attemps, maxAttemps));
 
       grid.append(square);
     }
@@ -109,16 +107,15 @@ function handleSquareClick(square, bombList, attemps, maxAttemps){
   let message = ``;
   const h2 = document.createElement('h2')
   h2.classList.add('mt-5')
-
+  // sconfitta
+  const squares = document.querySelectorAll('.square');
   if(bombList.includes(number)){
     square.classList.add('bomb');
     wrapGrid.classList.add('end-game');
-
+    
     message = `Hai perso! Hai fatto ${attemps.length} tentativi`;
     h2.append(message);
     wrapGrid.append(h2);
-    
-    const squares = document.querySelectorAll('.square');
 
     for(let i = 0; i < squares.length; i++){
       if(bombList.includes(parseInt(squares[i].innerHTML))){
@@ -126,12 +123,14 @@ function handleSquareClick(square, bombList, attemps, maxAttemps){
       }
     }
     
-  } else if(!bombList.includes(number)){
+  } 
+  // vittoria
+  else if(!bombList.includes(number)){
     square.classList.add('active');
 
     attemps.push(number);
     console.log(attemps);
-
+  
     if(attemps.length === maxAttemps){
       console.log('hai vinto');
       wrapGrid.classList.add('end-game')
@@ -139,6 +138,12 @@ function handleSquareClick(square, bombList, attemps, maxAttemps){
       message = `Hai vinto! Hai fatto ${attemps.length} tentativi`;
       h2.append(message);
       wrapGrid.append(h2);
+     
+      for(let i = 0; i < squares.length; i++){
+        if(bombList.includes(parseInt(squares[i].innerHTML))){
+          squares[i].classList.add('bomb');
+        }
+      }
     }
   } 
 }
