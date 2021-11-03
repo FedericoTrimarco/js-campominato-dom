@@ -17,7 +17,7 @@
 
 const btn = document.getElementById('set-difficulty');
 const difficultiesLevel = document.getElementById('difficulties');
-const wrapGrid= document.querySelector('.wrap-grid');
+const wrapGrid = document.querySelector('.wrap-grid');
 
 btn.addEventListener('click', () => {
     // reset content
@@ -31,8 +31,8 @@ btn.addEventListener('click', () => {
     
     switch (GridDimension) {
         case 'Easy': 
-            cellsNumber = 100;
-            cellsPerSide = 10;
+            cellsNumber = 16;
+            cellsPerSide = 4;
             break;
     
         case 'Normal':
@@ -48,8 +48,14 @@ btn.addEventListener('click', () => {
     console.log('cellsPerSide:', cellsPerSide);
 
     // generazione bombe
-    const bombGen = genBombs(cellsNumber, 6);
-    console.log(bombGen);
+    const bombList = genBombs(cellsNumber, 1);
+    console.log(bombList);
+
+    //lista tentativi
+    const attemps = [];
+    const maxAttemps = cellsNumber - bombList.length;
+
+    console.log('max tentativi:', maxAttemps);
 
     // creazione griglia padre
     const grid = document.createElement('div');
@@ -61,7 +67,9 @@ btn.addEventListener('click', () => {
     // gen square
       const square = gridSquare(num, cellsPerSide);
 
-      square.addEventListener('click', () => square.classList.toggle('active'));
+      square.addEventListener('click', () =>{
+        handleSquareClick(square, bombList, attemps, maxAttemps);
+      });
 
       grid.append(square);
     }
@@ -77,15 +85,37 @@ function gridSquare(num, cells){
     node.style.width = `calc(100% / ${cells})`;
     node.style.height = `calc(100% / ${cells})`;
 
-    // nodo span num
-    const span = document.createElement('span');
-    span.append(num);
-
-    // aggiunta dello span a square
-    node.append(span);
+   // aggiunta del numero a square
+    node.append(num);
 
     return node;
 }
+
+// gestore click
+function handleSquareClick(square, bombList, attemps, maxAttemps){
+  // ottieni numero square
+  const number = parseInt(square.innerHTML);
+  console.log(number);
+  // colpito bomba
+     
+  if(bombList.includes(number)){
+    square.classList.add('bomb');
+    document.querySelector('.wrap-grid').classList.add('end-game')
+    
+  } else if(!bombList.includes(number)){
+    square.classList.add('active');
+
+    attemps.push(number);
+    console.log(attemps);
+
+    if(attemps.length === maxAttemps){
+      console.log('hai vinto');
+      document.querySelector('.wrap-grid').classList.add('end-game')
+    }
+  } 
+}
+
+
 // bombe
 function genBombs(cells, totBombs){
   const bombs = [];
