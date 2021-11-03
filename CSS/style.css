@@ -21,8 +21,13 @@ nav{
     cursor: pointer;
 }
 
-.square.active{
+.square.safe{
     background-color: #6495ed;
+    color: #fff;
+}
+
+.square.bomb{
+    background-color: red;
     color: #fff;
 }
 
@@ -33,4 +38,8 @@ footer{
 
 footer .link-boolean:focus{
     color: purple;
+}
+
+.end-game{
+    pointer-events: none;
 }
