@@ -1,15 +1,27 @@
 /* GENERAL */
 body{
-    background-color: #7fffd4;
+    background-color: #8B5CF6;
     height: 100vh;
 }
 
 /*  */
-
+/* NAVBAR */
 nav{
     height: 80px;
 }
+#difficulties{
+    width: 150px;
+    border-radius: 15px;
+    padding: 3px 0;
+}
+#set-difficulty{
+    border: none;
+    border-radius: 15px;
+    padding: 3px 20px;
+    background-color: #00e165;
+}
 
+/* MAIN */
 .grid{
     width: 800px;
     height: 800px;
@@ -22,16 +34,17 @@ nav{
 }
 
 .square.active{
-    background-color: #6495ed;
+    background-color: #00e165;
     color: #fff;
 }
 
 .square.bomb{
-    background-color: red;
+    background-color: #df2d2d;
     color: #fff;
 }
-
+/* FOOTER */
 footer{
+    font-size: 20px;
     background-color: #fff;
     padding: 20px;
 }
