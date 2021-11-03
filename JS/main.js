@@ -31,8 +31,8 @@ btn.addEventListener('click', () => {
     
     switch (GridDimension) {
         case 'Easy': 
-            cellsNumber = 16;
-            cellsPerSide = 4;
+            cellsNumber = 100;
+            cellsPerSide = 10;
             break;
     
         case 'Normal':
@@ -67,9 +67,9 @@ btn.addEventListener('click', () => {
     grid.classList.add('grid', 'd-flex', 'flex-wrap');
     wrapGrid.append(grid);
 
+    // gen square
     for(let i = 1; i <= cellsNumber; i++){
       const num = i;
-    // gen square
       const square = gridSquare(num, cellsPerSide);
 
       square.addEventListener('click', () => handleSquareClick(square, bombList, attemps, maxAttemps));
@@ -107,8 +107,9 @@ function handleSquareClick(square, bombList, attemps, maxAttemps){
   let message = ``;
   const h2 = document.createElement('h2')
   h2.classList.add('mt-5')
-  // sconfitta
+  
   const squares = document.querySelectorAll('.square');
+             // sconfitta
   if(bombList.includes(number)){
     square.classList.add('bomb');
     wrapGrid.classList.add('end-game');
