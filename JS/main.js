@@ -128,7 +128,7 @@ function handleSquareClick(square, bombList, attemps, maxAttemps){
   } 
   // vittoria
   else if(!bombList.includes(number)){
-    square.classList.add('active');
+    square.classList.add('active', 'end-game');
 
     attemps.push(number);
     console.log('tentativo n°', attemps.length);
