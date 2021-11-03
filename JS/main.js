@@ -22,6 +22,7 @@ const wrapGrid = document.querySelector('.wrap-grid');
 btn.addEventListener('click', () => {
     // reset content
     wrapGrid.innerHTML = '';
+    wrapGrid.classList.remove('end-game');
     // set grid dimension
     const GridDimension = difficultiesLevel.value;
     console.log('livello:',GridDimension);
