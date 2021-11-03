@@ -31,8 +31,8 @@ btn.addEventListener('click', () => {
     
     switch (GridDimension) {
         case 'Easy': 
-            cellsNumber = 16;
-            cellsPerSide = 4;
+            cellsNumber = 100;
+            cellsPerSide = 10;
             break;
     
         case 'Normal':
@@ -48,7 +48,12 @@ btn.addEventListener('click', () => {
     console.log('cellsPerSide:', cellsPerSide);
 
     // generazione bombe
-    const bombList = genBombs(cellsNumber, 1);
+
+    let bombChoise = parseInt(prompt("quante bombe vuoi all'interno della griglia? (da 1 a 16 MAX)"));
+    while(bombChoise < 1 || bombChoise > 16 || isNaN(bombChoise)){
+      bombChoise = parseInt(prompt("INSERIMENTO NON VALIDO. inserisci un nuovo numero (da 1 a 16 MAX)"));
+    }
+    const bombList = genBombs(cellsNumber, bombChoise);
     console.log(bombList);
 
     //lista tentativi
@@ -75,6 +80,9 @@ btn.addEventListener('click', () => {
     }
 });
 
+
+
+
 /***********
  FUNZIONI
 ***********/
@@ -91,16 +99,32 @@ function gridSquare(num, cells){
     return node;
 }
 
+
 // gestore click
 function handleSquareClick(square, bombList, attemps, maxAttemps){
   // ottieni numero square
   const number = parseInt(square.innerHTML);
   console.log(number);
   // colpito bomba
-     
+  let message = ``;
+  const h2 = document.createElement('h2')
+  h2.classList.add('mt-5')
+
   if(bombList.includes(number)){
     square.classList.add('bomb');
-    document.querySelector('.wrap-grid').classList.add('end-game')
+    wrapGrid.classList.add('end-game');
+
+    message = `Hai perso! Hai fatto ${attemps.length} tentativi`;
+    h2.append(message);
+    wrapGrid.append(h2);
+    
+    const squares = document.querySelectorAll('.square');
+
+    for(let i = 0; i < squares.length; i++){
+      if(bombList.includes(parseInt(squares[i].innerHTML))){
+        squares[i].classList.add('bomb');
+      }
+    }
     
   } else if(!bombList.includes(number)){
     square.classList.add('active');
@@ -110,7 +134,11 @@ function handleSquareClick(square, bombList, attemps, maxAttemps){
 
     if(attemps.length === maxAttemps){
       console.log('hai vinto');
-      document.querySelector('.wrap-grid').classList.add('end-game')
+      wrapGrid.classList.add('end-game')
+
+      message = `Hai vinto! Hai fatto ${attemps.length} tentativi`;
+      h2.append(message);
+      wrapGrid.append(h2);
     }
   } 
 }
@@ -137,3 +165,4 @@ function genBombs(cells, totBombs){
 function randomNum(min, max){
   return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
+
